@@ -5,7 +5,7 @@
       class="searchBox"
       placeholder="Search Products ..."
       v-model="term"
-      @keyup="search(term)"
+      @keyup="updateFilters('term', term)"
     />
     <!-- <button class="searchBtn">
       <fa icon="magnifying-glass" class="searchBtn" />
@@ -13,7 +13,7 @@
   </div>
   <div class="review">
     <h3 class="revHead">Customer Review</h3>
-    <p @click="() => updateFilters('review', 4)">
+    <p @click="() => updateFilters('rating', 4)">
       <fa icon="star" />
       <fa icon="star" />
       <fa icon="star" />
@@ -21,7 +21,7 @@
       <fa :icon="['far', 'star']" />
       & Up
     </p>
-    <p @click="() => updateFilters('review', 3)">
+    <p @click="() => updateFilters('rating', 3)">
       <fa icon="star" />
       <fa icon="star" />
       <fa icon="star" />
@@ -29,7 +29,7 @@
       <fa :icon="['far', 'star']" />
       & Up
     </p>
-    <p @click="() => updateFilters('review', 2)">
+    <p @click="() => updateFilters('rating', 2)">
       <fa icon="star" />
       <fa icon="star" />
       <fa :icon="['far', 'star']" />
@@ -37,7 +37,7 @@
       <fa :icon="['far', 'star']" />
       & Up
     </p>
-    <p @click="() => updateFilters('review', 1)">
+    <p @click="() => updateFilters('rating', 1)">
       <fa icon="star" />
       <fa :icon="['far', 'star']" />
       <fa :icon="['far', 'star']" />
@@ -48,119 +48,120 @@
   </div>
   <div class="review">
     <h3 class="revHead">Price</h3>
-    <p @click="() => updateFilters('under', 0, 'over', 500)">Under $500</p>
-    <p @click="() => updateFilters('under', 500, 'over', 1000)">$500 - $1000</p>
-    <p @click="() => updateFilters('under', 1000, 'over', 1500)">
+    <p @click="() => updateFilters('over', 0, 'under', 500)">Under $500</p>
+    <p @click="() => updateFilters('over', 500, 'under', 1000)">$500 - $1000</p>
+    <p @click="() => updateFilters('over', 1000, 'under', 1500)">
       $1000 - $1500
     </p>
-    <p @click="() => updateFilters('under', 1500, 'over', 2000)">
+    <p @click="() => updateFilters('over', 1500, 'under', 2000)">
       $1500 - $2000
     </p>
-    <p @click="() => updateFilters('under', 2000, 'over', 2500)">
+    <p @click="() => updateFilters('over', 2000, 'under', 2500)">
       $2000 - $2500
     </p>
-    <p @click="() => updateFilters('under', 2500, 'over', 9999999999999999)">
+    <p @click="() => updateFilters('over', 2500, 'under', 'Infinity')">
       Over $2500
     </p>
   </div>
   <div class="review">
     <h3 class="revHead">Shoe Size (UK/India)</h3>
     <div class="row">
-      <div class="col-md-3">
-        <button @click="() => updateFilters('size', 3)" class="size">
-          <p>3</p>
+      <!-- {{ products }} -->
+      <div v-for="size in products.arr" :key="size" class="col-md-3">
+        <button @click="() => updateFilters('shoeSize', size)" class="size">
+          <p>{{ size }}</p>
         </button>
       </div>
-      <div class="col-md-3">
-        <button @click="() => updateFilters('size', 3.5)" class="size">
+      <!-- <div class="col-md-3">
+        <button @click="() => updateFilters('shoeSize', 3.5)" class="size">
           <p>3.5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 4)" class="size">
+        <button @click="() => updateFilters('shoeSize', 4)" class="size">
           <p>4</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 4.5)" class="size">
+        <button @click="() => updateFilters('shoeSize', 4.5)" class="size">
           <p>4.5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 5)" class="size">
+        <button @click="() => updateFilters('shoeSize', 5)" class="size">
           <p>5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 5.5)" class="size">
+        <button @click="() => updateFilters('shoeSize', 5.5)" class="size">
           <p>5.5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 6)" class="size">
+        <button @click="() => updateFilters('shoeSize', 6)" class="size">
           <p>6</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 6.5)" class="size">
+        <button @click="() => updateFilters('shoeSize', 6.5)" class="size">
           <p>6.5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 7)" class="size">
+        <button @click="() => updateFilters('shoeSize', 7)" class="size">
           <p>7</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 7.5)" class="size">
+        <button @click="() => updateFilters('shoeSize', 7.5)" class="size">
           <p>7.5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 8)" class="size">
+        <button @click="() => updateFilters('shoeSize', 8)" class="size">
           <p>8</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 8.5)" class="size">
+        <button @click="() => updateFilters('shoeSize', 8.5)" class="size">
           <p>8.5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 9)" class="size">
+        <button @click="() => updateFilters('shoeSize', 9)" class="size">
           <p>9</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 9.5)" class="size">
+        <button @click="() => updateFilters('shoeSize', 9.5)" class="size">
           <p>9.5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 10)" class="size">
+        <button @click="() => updateFilters('shoeSize', 10)" class="size">
           <p>10</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 10.5)" class="size">
+        <button @click="() => updateFilters('shoeSize', 10.5)" class="size">
           <p>10.5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 11)" class="size">
+        <button @click="() => updateFilters('shoeSize', 11)" class="size">
           <p>11</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 11.5)" class="size">
+        <button @click="() => updateFilters('shoeSize', 11.5)" class="size">
           <p>11.5</p>
         </button>
       </div>
       <div class="col-md-3">
-        <button @click="() => updateFilters('size', 12)" class="size">
+        <button @click="() => updateFilters('shoeSize', 12)" class="size">
           <p>12</p>
         </button>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="review">
@@ -174,36 +175,11 @@
   </div>
 </template>
 <script>
+import FetchPosts from "../services/fetch";
 export default {
   name: "filter",
-  props: ["search"],
-  data() {
-    return {
-      filters: {
-        review: 0,
-        under: 0,
-        over: 9999999999999999,
-        size: 0,
-        disc: 0,
-      },
-      term: "",
-    };
-  },
-  methods: {
-    updateFilters(filt, val, filt2, val2) {
-      // console.log("=============================");
-      // console.log("child Comp before" + JSON.stringify(this.filters));
-      // console.log("=============================");
-      this.filters[filt] = val;
-      if (filt2 && val2) {
-        this.filters[filt2] = val2;
-      }
-      // console.log("=============================");
-      // console.log("child Comp" + JSON.stringify(this.filters));
-      // console.log("=============================");
-      this.$parent.filereProds(this.filters);
-    },
-  },
+  props: ["search", "products"],
+  mixins: [FetchPosts],
 };
 </script>
 

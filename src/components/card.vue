@@ -1,18 +1,28 @@
 <template>
-  <div v-for="prod in products" :key="prod.id" class="col-md-3">
+  <div v-for="prod in products.products" :key="prod.id" class="col-md-3">
+    <!-- <h1>{{ prod._id }}</h1> -->
     <div class="card">
-      <router-link :to="{ name: 'Details', params: { id: prod.id } }">
+      <router-link :to="{ name: 'Details', params: { id: prod._id } }">
         <div class="imgSec">
           <img :src="prod.images[0]" :alt="prod.title" />
         </div>
         <div class="prodInfo text-center">
           <div class="prodName text-capitalize">{{ prod.title }}</div>
+          <p>{{ prod.size[0].size }}</p>
           <div
             class="prodPrice align-items-center d-flex justify-content-center"
           >
-            <span class="finalPrice"> {{ prod.price.final }} </span>
-            <span class="originalPrice"> {{ prod.price.mrp }} </span>
-            <span class="disc"> ( {{ prod.price.disc }}% off) </span>
+            <span class="finalPrice">
+              <!-- {{
+                Math.round(
+                  prod.price[0].mrp -
+                    (prod.price[0].mrp / 100) * prod.price[0].disc
+                )
+              }} -->
+              {{ prod.price[0].final }}
+            </span>
+            <!-- <span class="originalPrice"> {{ prod.price[0].mrp }} </span> -->
+            <span class="disc"> ( {{ prod.price[0].disc }}% off) </span>
           </div>
         </div>
       </router-link>
