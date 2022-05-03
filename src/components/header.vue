@@ -9,38 +9,51 @@
           <h1 id="logo"><fa icon="shoe-prints" /> Shoes</h1>
         </router-link>
       </div>
-      <div class="col-md-8 d-flex align-items-center justify-content-center">
-        <!-- <div class="search">
-          <input
-            type="text"
-            class="searchBox"
-            placeholder="Search Products ..."
-          />
-          <button class="searchBtn">
-            <fa icon="magnifying-glass" class="searchBtn" />
-          </button>
-        </div> -->
-      </div>
+      <div
+        class="col-md-8 d-flex align-items-center justify-content-center"
+      ></div>
       <div class="col-md-2 d-flex align-items-center justify-content-end">
         <div
           id="account"
           class="d-flex align-items-center justify-content-center"
         >
-          <fa :icon="['fas', 'user']" />
-          <router-link :to="{ name: 'SignIn' }">
+          <router-link :to="{ name: url }" class="d-flex align-items-center">
+            <fa :icon="['fas', 'user']" />
             <div class="welcome">
               <p class="greet">Hello</p>
-              <p class="name">Sign in</p>
+              <p class="name">{{ name }}</p>
             </div>
           </router-link>
+        </div>
+        <div v-if="active" id="logout">
+          <a @click="() => logout()">Logout</a>
         </div>
       </div>
     </div>
   </div>
 </template>
 <script>
+import "../axios";
+import userDetails from "../services/userDetails";
+
 export default {
   name: "header",
+  mixins: [userDetails],
+  created() {
+    this.getUserDetails(this.chkResponse);
+  },
+  methods: {
+    chkResponse() {
+      if (this.response != {}) {
+        this.populateUserDetails(this.response);
+      } else {
+        this.removeUserDetails();
+      }
+    },
+  },
+  updated() {
+    console.log("Header have been updated");
+  },
 };
 </script>
 <style scoped>
@@ -108,5 +121,13 @@ svg {
   color: #fff;
   font-weight: bold;
   line-height: 16px;
+  height: 20px;
+  line-height: 20px;
+  text-transform: capitalize;
+  min-width: 100px;
+}
+#logout {
+  margin-left: 15px;
+  color: #f08804;
 }
 </style>

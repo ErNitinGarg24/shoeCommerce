@@ -14,13 +14,7 @@
         </div>
         <div class="col-md-12">
           <div
-            class="
-              pagination
-              d-flex
-              align-items-center
-              justify-content-center
-              mt-5
-            "
+            class="pagination d-flex align-items-center justify-content-center mt-5"
           >
             <div class="previous buttoned">Previous</div>
             <div class="counts">

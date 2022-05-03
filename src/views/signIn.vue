@@ -1,43 +1,50 @@
 <template>
   <div class="containerSign">
     <div class="card">
-      <div class="title">
-        <!-- <h1>Sign In:</h1> -->
-        <h1>Create Account:</h1>
-      </div>
-      <div class="name">
-        <label for="name">Name:</label>
-        <input type="text" />
-      </div>
-      <div class="email">
-        <label for="email">Email:</label>
-        <input type="text" />
-      </div>
-      <div class="pwd">
-        <label for="password">Password:</label>
-        <input type="password" />
-      </div>
-      <div class="confirmPwd">
-        <label for="confirm-password">Confirm password:</label>
-        <input type="password" />
-      </div>
-      <button class="add">Continue</button>
-      <div class="alternate">
-        <span>
-          Already have an account
-          <router-link to="/sign-in"> Sign In </router-link>
-        </span>
-        <!-- <span>
-          Don't have an account
-          <router-link to="/sign-in"> Create Account </router-link>
-        </span> -->
-      </div>
+      <form @submit.prevent="handleSubmit">
+        <div class="title">
+          <!-- <h1>Sign In:</h1> -->
+          <h1>Log In:</h1>
+        </div>
+        <div class="email">
+          <label for="email">Email:</label>
+          <input
+            type="text"
+            v-model="email"
+            placeholder="Please enter registered email here"
+          />
+        </div>
+        <div class="pwd">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            v-model="password"
+            placeholder="Please enter your password here"
+          />
+        </div>
+        <button class="add">Continue</button>
+        <div class="alternate">
+          <span>
+            Don't have an account
+            <router-link to="/sign-up"> Create Account </router-link>
+          </span>
+        </div>
+      </form>
     </div>
   </div>
 </template>
 <script>
+import "../axios";
+import userDetails from "../services/userDetails";
 export default {
   name: "signIn",
+  mixins: [userDetails],
+  // data() {
+  //   return {
+  //   };
+  // },
+  // methods: {
+  // },
 };
 </script>
 <style lang="scss" scoped>

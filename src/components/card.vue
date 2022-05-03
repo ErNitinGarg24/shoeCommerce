@@ -8,7 +8,7 @@
         </div>
         <div class="prodInfo text-center">
           <div class="prodName text-capitalize">{{ prod.title }}</div>
-          <p>{{ prod.size[0].size }}</p>
+          <!-- <p>{{ prod.size[0].size }}</p> -->
           <div
             class="prodPrice align-items-center d-flex justify-content-center"
           >
